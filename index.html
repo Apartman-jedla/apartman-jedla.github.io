@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Apartmán Jedla, Štrbské Pleso, Vysoké Tatry. Moderné ubytovanie s výhľadom na Tatry. Kontakt a fotky.">
+<title>Apartmán Jedla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: full-bleed Tatra hero → intro → feature band → amenities → gallery(lightbox) → location → contact. Alpine-calm identity. */
+  :root{
+    --bg:#f6f4ef; --surface:#ffffff; --surface-2:#fbf9f4;
+    --ink:#1c2621; --muted:#5d6b63; --line:#e5dfd4;
+    --forest:#2e5d49; --forest-deep:#1e4034;
+    --wood:#a9774a; --snow:#ffffff;
+    --shadow:0 1px 2px rgba(28,38,33,.04), 0 12px 32px -12px rgba(28,38,33,.18);
+    --radius:14px;
+    --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+    --f-body:"Hanken Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
+    --maxw:1120px;
+  }
+  :root:not([data-theme="light"]){ }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#10140f; --surface:#171c15; --surface-2:#141811;
+      --ink:#edf0e8; --muted:#a4b0a4; --line:#2a312a;
+      --forest:#78b795; --forest-deep:#9fcfb3; --wood:#cb9c6c; --snow:#edf0e8;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 18px 40px -16px rgba(0,0,0,.6);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10140f; --surface:#171c15; --surface-2:#141811;
+    --ink:#edf0e8; --muted:#a4b0a4; --line:#2a312a;
+    --forest:#78b795; --forest-deep:#9fcfb3; --wood:#cb9c6c; --snow:#edf0e8;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 18px 40px -16px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+    font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  [hidden]{display:none!important}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--f-display);font-weight:500;text-wrap:balance;margin:0;line-height:1.1;letter-spacing:-.01em}
+  p{margin:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:24px}
+  .eyebrow{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--forest);font-weight:600}
+
+  /* ---------- header ---------- */
+  header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;transition:border-color .3s, background .3s}
+  header.site.scrolled{border-bottom-color:var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;max-width:var(--maxw);margin:0 auto;padding-inline:24px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .brand svg{color:var(--forest);flex:none}
+  .nav-right{display:flex;align-items:center;gap:8px}
+  .nav-links{display:flex;gap:4px}
+  .nav-links a{font-size:14.5px;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:9px;transition:color .2s,background .2s;font-weight:500}
+  .nav-links a:hover{color:var(--ink);background:var(--surface-2)}
+  .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+  .lang button{appearance:none;border:0;background:transparent;color:var(--muted);font:600 13px/1 var(--f-body);
+    padding:7px 11px;cursor:pointer;letter-spacing:.03em;transition:color .2s}
+  .nav-phone{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    font:600 14.5px/1 var(--f-body);color:var(--ink);padding:9px 15px;border:1px solid var(--line);
+    border-radius:999px;background:var(--surface);transition:border-color .2s,color .2s,background .2s;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .nav-phone svg{color:var(--forest);flex:none}
+  .nav-phone:hover{border-color:var(--forest);color:var(--forest);background:var(--surface-2)}
+  .lang button[aria-pressed="true"]{background:var(--forest);color:var(--snow)}
+  :root[data-theme="dark"] .lang button[aria-pressed="true"],
+  :root:not([data-theme="light"]) .lang button[aria-pressed="true"]{color:#10140f}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lang button[aria-pressed="true"]{color:#10140f}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:min(84vh,780px);display:flex;align-items:flex-end;
+    color:#fff;overflow:hidden;isolation:isolate}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg, rgba(14,22,16,.28) 0%, rgba(14,22,16,.05) 34%, rgba(14,22,16,.52) 78%, rgba(14,22,16,.78) 100%)}
+  .hero-inner{max-width:var(--maxw);margin:0 auto;padding:0 24px 56px;width:100%}
+  .hero .eyebrow{color:#dfe8df;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .hero h1{font-size:clamp(44px,8.5vw,92px);font-weight:500;margin:.18em 0 .12em;
+    text-shadow:0 2px 24px rgba(0,0,0,.35);max-width:14ch}
+  .hero .lede{font-size:clamp(17px,2.3vw,21px);max-width:46ch;color:#f1f4ef;text-shadow:0 1px 12px rgba(0,0,0,.45)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-size:14.5px;color:#eaf0ea;font-weight:500}
+  .hero-meta span{display:inline-flex;align-items:center;gap:8px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .hero-meta svg{opacity:.9;flex:none}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font:600 15.5px/1 var(--f-body);text-decoration:none;
+    padding:14px 22px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:transform .15s, box-shadow .2s, background .2s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--forest);color:var(--snow);box-shadow:0 10px 24px -10px rgba(46,93,73,.7)}
+  :root[data-theme="dark"] .btn-primary,
+  :root:not([data-theme="light"]) .btn-primary{color:#0f1410}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn-primary{color:#0f1410}}
+  .btn-primary:hover{background:var(--forest-deep)}
+  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.4);backdrop-filter:blur(4px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.22)}
+
+  /* ---------- sections ---------- */
+  section{padding-block:clamp(56px,8vw,104px)}
+  .intro{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,6vw,72px);align-items:center}
+  .intro h2{font-size:clamp(30px,4.4vw,46px);margin:.3em 0 .55em}
+  .intro p + p{margin-top:16px}
+  .intro .muted{color:var(--muted)}
+  .facts{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+  .fact{display:flex;align-items:center;gap:16px;padding:18px 22px}
+  .fact + .fact{border-top:1px solid var(--line)}
+  .fact svg{color:var(--forest);flex:none}
+  .fact b{font-family:var(--f-display);font-weight:600;font-size:18px;display:block;line-height:1.25}
+  .fact small{color:var(--muted);font-size:13.5px}
+
+  /* feature band */
+  .band{position:relative;height:clamp(300px,46vw,520px);overflow:hidden}
+  .band img{width:100%;height:100%;object-fit:cover}
+  .band figcaption{position:absolute;left:0;bottom:0;color:#fff;padding:24px;max-width:var(--maxw);
+    margin:0 auto;right:0;font-family:var(--f-display);font-size:clamp(20px,3vw,30px);
+    text-shadow:0 2px 16px rgba(0,0,0,.5)}
+  .band::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(14,22,16,.6),transparent 60%)}
+  .band figcaption{z-index:2}
+
+  /* amenities */
+  .amen-head{text-align:center;max-width:620px;margin:0 auto clamp(36px,5vw,56px)}
+  .amen-head h2{font-size:clamp(28px,4vw,42px);margin:.4em 0 .4em}
+  .amen-head p{color:var(--muted)}
+  .amen{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .amen-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow)}
+  .amen-card .ic{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;
+    background:color-mix(in srgb,var(--forest) 12%, var(--surface));color:var(--forest);margin-bottom:16px}
+  .amen-card h3{font-size:17.5px;font-weight:600;margin-bottom:5px;letter-spacing:0}
+  .amen-card p{font-size:14px;color:var(--muted);line-height:1.5}
+
+  /* gallery */
+  .gal-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}
+  .gal-head h2{font-size:clamp(28px,4vw,42px)}
+  .gal-head p{color:var(--muted);font-size:15px}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .gcell{position:relative;margin:0;border-radius:12px;overflow:hidden;cursor:zoom-in;background:var(--surface-2);aspect-ratio:4/3}
+  .gcell.tall{aspect-ratio:4/3}
+  .gcell img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .gcell:hover img{transform:scale(1.05)}
+  .gcell:focus-visible{outline:3px solid var(--forest);outline-offset:2px}
+  .gcell::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.14),transparent 40%);opacity:0;transition:opacity .3s}
+  .gcell:hover::after{opacity:1}
+
+  /* location */
+  .loc{background:var(--surface-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+  .loc h2{font-size:clamp(28px,4vw,42px);margin:.35em 0 .5em}
+  .loc p{color:var(--muted)}
+  .loc ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
+  .loc li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+  .loc li svg{color:var(--forest);flex:none;margin-top:3px}
+  .loc-figure{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/4;max-height:520px}
+  .loc-figure img{width:100%;height:100%;object-fit:cover}
+
+  /* contact */
+  .contact{text-align:center}
+  .contact-card{max-width:680px;margin:0 auto;background:var(--surface);border:1px solid var(--line);
+    border-radius:20px;box-shadow:var(--shadow);padding:clamp(34px,6vw,56px) 28px}
+  .contact .eyebrow{display:block;margin-bottom:14px}
+  .contact h2{font-size:clamp(28px,4.4vw,44px);margin-bottom:14px}
+  .contact > .wrap > p,.contact-card p.sub{color:var(--muted);max-width:52ch;margin:0 auto 10px}
+  .phone{font-family:var(--f-display);font-size:clamp(30px,5.2vw,44px);font-weight:600;letter-spacing:.01em;
+    color:var(--ink);text-decoration:none;display:inline-block;margin:18px 0 26px}
+  .phone:hover{color:var(--forest)}
+  .contact .cta-row{justify-content:center;margin-top:0}
+  .btn-wa{background:var(--surface-2);color:var(--ink);border-color:var(--line)}
+  .btn-wa:hover{border-color:var(--forest);color:var(--forest)}
+  .btn-wa svg{color:#25D366}
+
+  footer{padding:40px 0 48px;text-align:center;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+  footer .brand{justify-content:center;color:var(--ink);margin-bottom:10px;font-size:18px}
+  footer a{color:var(--forest);text-decoration:none}
+
+  /* lightbox */
+  .lb{position:fixed;inset:0;z-index:90;background:rgba(10,14,10,.94);display:none;align-items:center;justify-content:center;padding:28px}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:88vh;width:auto;height:auto;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .lb button{position:absolute;appearance:none;border:0;background:rgba(255,255,255,.1);color:#fff;
+    width:52px;height:52px;border-radius:50%;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+  .lb button:hover{background:rgba(255,255,255,.22)}
+  .lb .lb-close{top:20px;right:20px;width:46px;height:46px}
+  .lb .lb-prev{left:16px} .lb .lb-next{right:16px}
+  .lb .lb-count{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#cfd6cf;font-size:14px;font-weight:500}
+
+  @media (max-width:860px){
+    .intro{grid-template-columns:1fr;gap:34px}
+    .amen{grid-template-columns:repeat(2,1fr)}
+    .loc-grid{grid-template-columns:1fr}
+    .loc-figure{aspect-ratio:16/10;max-height:none;order:-1}
+    .nav-links{display:none}
+  }
+  @media (max-width:520px){
+    body{font-size:16px}
+    .nav-phone .np-num{display:none}
+    .nav-phone{padding:9px}
+    .gallery{grid-template-columns:repeat(2,1fr);gap:10px}
+    .lb .lb-prev{left:8px}.lb .lb-next{right:8px}
+    .hero-inner{padding-bottom:40px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<style>*{box-sizing:border-box}[hidden]{display:none!important}img{max-width:100%;display:block}html{color-scheme:light}</style>
+</head>
+<body>
+<header class="site" id="siteHeader">
+  <nav class="nav">
+    <a class="brand" href="#top" aria-label="Apartmán Jedla">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L13.5 6 10 12l-2-3z"/></svg>
+      Apartmán Jedla
+    </a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#apartman"><span lang="sk">Apartmán</span><span lang="en" hidden>The apartment</span></a>
+        <a href="#galeria"><span lang="sk">Galéria</span><span lang="en" hidden>Gallery</span></a>
+        <a href="#lokalita"><span lang="sk">Lokalita</span><span lang="en" hidden>Location</span></a>
+      </div>
+      <a class="nav-phone" href="tel:+421911124191" aria-label="Zavolať +421 911 124 191">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        <span class="np-num">+421 911 124 191</span>
+      </a>
+      <div class="lang" role="group" aria-label="Jazyk / Language">
+        <button type="button" data-lang-btn="sk" aria-pressed="true">SK</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" aria-label="Apartmán Jedla, Štrbské Pleso">
+    <img src="images/13.jpg" alt="Výhľad na štíty Vysokých Tatier z apartmánu">
+    <div class="hero-inner">
+      <p class="eyebrow"><span lang="sk">Štrbské Pleso · Vysoké Tatry</span><span lang="en" hidden>Štrbské Pleso · High Tatras</span></p>
+      <h1><span lang="sk">Apartmán Jedla</span><span lang="en" hidden>Apartmán Jedla</span></h1>
+      <p class="lede">
+        <span lang="sk">Moderné, svetlé bývanie priamo v srdci Tatier, s balkónom a výhľadom na štíty. Váš pokojný základ pre hory v každom ročnom období.</span>
+        <span lang="en" hidden>A bright, modern apartment in the heart of the Tatras, with a balcony and a view of the peaks. Your calm base for the mountains in every season.</span>
+      </p>
+      <div class="hero-meta">
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/></svg><span lang="sk">Spálňa + obývačka</span><span lang="en" hidden>Bedroom + living room</span></span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L13.5 6 10 12l-2-3z"/></svg><span lang="sk">Výhľad na Tatry</span><span lang="en" hidden>Tatra mountain view</span></span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span lang="sk">Plne vybavený</span><span lang="en" hidden>Fully equipped</span></span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#kontakt"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span lang="sk">Dopyt &amp; rezervácia</span><span lang="en" hidden>Enquire &amp; book</span></a>
+        <a class="btn btn-ghost" href="#galeria"><span lang="sk">Prehliadka</span><span lang="en" hidden>Take a look</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section id="apartman" class="loc-anchor">
+    <div class="wrap intro">
+      <div>
+        <p class="eyebrow"><span lang="sk">O apartmáne</span><span lang="en" hidden>The apartment</span></p>
+        <h2><span lang="sk">Hory za oknom, pohodlie vo vnútri</span><span lang="en" hidden>Mountains at the window, comfort inside</span></h2>
+        <p><span lang="sk">Priestranný apartmán zariadený v teplom alpskom štýle, prírodné drevo, mäkké textílie a veľa denného svetla. Samostatná spálňa s manželskou posteľou, obývačka s rozkladacím gaučom, plne vybavená kuchyňa a vlastná kúpeľňa so sprchou.</span><span lang="en" hidden>A spacious apartment finished in a warm alpine style, natural wood, soft textiles and plenty of daylight. A separate bedroom with a double bed, a living room with a sofa bed, a fully equipped kitchen and a private bathroom with a shower.</span></p>
+        <p class="muted"><span lang="sk">Z balkóna sa pozeráte priamo na tatranské štíty a okolité lesy. Ideálny pre páry aj menšie rodiny, ktoré chcú byť blízko prírody a zároveň mať všetko pohodlie domova.</span><span lang="en" hidden>From the balcony you look straight onto the Tatra peaks and the surrounding forests. Perfect for couples and small families who want to be close to nature while keeping all the comforts of home.</span></p>
+      </div>
+      <div class="facts" aria-label="Fakty o apartmáne">
+        <div class="fact"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg><div><b><span lang="sk">Spálňa</span><span lang="en" hidden>Bedroom</span></b><small><span lang="sk">Manželská posteľ · balkón · výhľad</span><span lang="en" hidden>Double bed · balcony · view</span></small></div></div>
+        <div class="fact"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 14h18M5 20V9a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v11"/></svg><div><b><span lang="sk">Obývačka</span><span lang="en" hidden>Living room</span></b><small><span lang="sk">Rozkladací gauč · TV · jedálenský kút</span><span lang="en" hidden>Sofa bed · TV · dining nook</span></small></div></div>
+        <div class="fact"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h.01M8 11h.01M12 7h4M12 11h4"/></svg><div><b><span lang="sk">Kuchyňa</span><span lang="en" hidden>Kitchen</span></b><small><span lang="sk">Indukcia · rúra · chladnička · práčka</span><span lang="en" hidden>Induction · oven · fridge · washer</span></small></div></div>
+        <div class="fact"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a0 0 0 0 1 0 0v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3zM7 12V6a2 2 0 0 1 4 0"/></svg><div><b><span lang="sk">Kúpeľňa</span><span lang="en" hidden>Bathroom</span></b><small><span lang="sk">Sprchový kút · vlastná · ručníky</span><span lang="en" hidden>Walk-in shower · private · towels</span></small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE BAND -->
+  <figure class="band" style="margin:0">
+    <img src="images/05.jpg" alt="Obývačka s výhľadom na les a hory">
+    <figcaption><span lang="sk">Ráno s kávou, hory na dosah.</span><span lang="en" hidden>Morning coffee, mountains within reach.</span></figcaption>
+  </figure>
+
+  <!-- AMENITIES -->
+  <section>
+    <div class="wrap">
+      <div class="amen-head">
+        <p class="eyebrow"><span lang="sk">Vybavenie</span><span lang="en" hidden>Amenities</span></p>
+        <h2><span lang="sk">Všetko, čo potrebujete</span><span lang="en" hidden>Everything you need</span></h2>
+        <p><span lang="sk">Zariadené tak, aby ste si len rozbalili a oddychovali.</span><span lang="en" hidden>Set up so you can simply unpack and relax.</span></p>
+      </div>
+      <div class="amen">
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0M8.5 16.5a5 5 0 0 1 7 0M2 9.5a15 15 0 0 1 20 0"/><circle cx="12" cy="20" r="1"/></svg></div><h3><span lang="sk">WiFi zdarma</span><span lang="en" hidden>Free WiFi</span></h3><p><span lang="sk">Rýchly internet po celom apartmáne.</span><span lang="en" hidden>Fast internet throughout the apartment.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h.01M8 11h.01M12 7h4M12 11h4"/></svg></div><h3><span lang="sk">Plná kuchyňa</span><span lang="en" hidden>Full kitchen</span></h3><p><span lang="sk">Indukcia, rúra, chladnička, kanvica, riad.</span><span lang="en" hidden>Induction, oven, fridge, kettle, dishware.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 13l2-2"/><path d="M8 5h.01"/></svg></div><h3><span lang="sk">Práčka</span><span lang="en" hidden>Washing machine</span></h3><p><span lang="sk">Vlastná práčka, ideálne na dlhší pobyt.</span><span lang="en" hidden>Your own washer, great for longer stays.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg></div><h3><span lang="sk">Smart TV</span><span lang="en" hidden>Smart TV</span></h3><p><span lang="sk">Televízor s pripojením na streamovanie.</span><span lang="en" hidden>TV ready for streaming.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M3 21h18M9 21v-5h6v5"/></svg></div><h3><span lang="sk">Balkón s výhľadom</span><span lang="en" hidden>Balcony &amp; view</span></h3><p><span lang="sk">Posedenie s panorámou tatranských štítov.</span><span lang="en" hidden>Seating with a panorama of the Tatra peaks.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3zM7 12V6a2 2 0 0 1 4 0"/><path d="M6 19l-1 2M18 19l1 2"/></svg></div><h3><span lang="sk">Vlastná kúpeľňa</span><span lang="en" hidden>Private bathroom</span></h3><p><span lang="sk">Priestranný sprchový kút, uteráky v cene.</span><span lang="en" hidden>Spacious walk-in shower, towels included.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M5 5l1.5 1.5M17.5 17.5 19 19M2 12h2M20 12h2M5 19l1.5-1.5M17.5 6.5 19 5"/><circle cx="12" cy="12" r="4"/></svg></div><h3><span lang="sk">Vykurovanie</span><span lang="en" hidden>Heating</span></h3><p><span lang="sk">Teplo a útulno aj počas zimných dní.</span><span lang="en" hidden>Warm and cosy even on winter days.</span></p></div>
+        <div class="amen-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V8l8-5 8 5v12"/><rect x="9" y="12" width="6" height="8"/></svg></div><h3><span lang="sk">Vstupná hala</span><span lang="en" hidden>Entrance hall</span></h3><p><span lang="sk">Vešiaky a úložisko na lyže, topánky a kufre.</span><span lang="en" hidden>Hooks and storage for skis, boots and luggage.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="galeria">
+    <div class="wrap">
+      <div class="gal-head">
+        <div>
+          <p class="eyebrow"><span lang="sk">Galéria</span><span lang="en" hidden>Gallery</span></p>
+          <h2><span lang="sk">Pozrite sa dnu</span><span lang="en" hidden>Step inside</span></h2>
+        </div>
+        <p><span lang="sk">Kliknutím zväčšíte fotku.</span><span lang="en" hidden>Click a photo to enlarge.</span></p>
+      </div>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="lokalita" class="loc">
+    <div class="wrap loc-grid">
+      <div>
+        <p class="eyebrow"><span lang="sk">Lokalita</span><span lang="en" hidden>Location</span></p>
+        <h2><span lang="sk">Štrbské Pleso, Vysoké Tatry</span><span lang="en" hidden>Štrbské Pleso, High Tatras</span></h2>
+        <p><span lang="sk">Jedno z najkrajších miest Slovenska, horské pleso v nadmorskej výške 1346 m, obklopené štítmi a lesom. Východisko pre túry, bežky aj zjazdovky priamo nad osadou.</span><span lang="en" hidden>One of Slovakia's most beautiful spots, a glacial lake at 1,346 m, ringed by peaks and forest. A base for hiking, cross-country and downhill slopes right above the resort.</span></p>
+        <ul>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span lang="sk"><b>Pleso a promenáda</b>, prechádzka k jazeru na pár minút.</span><span lang="en" hidden><b>Lake &amp; promenade</b>, a few minutes' walk to the water.</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L13.5 6 10 12l-2-3z"/></svg><span lang="sk"><b>Túry a štíty</b>, značené chodníky priamo od apartmánu.</span><span lang="en" hidden><b>Trails &amp; peaks</b>, marked paths right from the door.</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l5-5 5 5M5 21h14"/></svg><span lang="sk"><b>Lyžovačka</b>, zjazdovky a lanovky v stredisku.</span><span lang="en" hidden><b>Skiing</b>, slopes and lifts in the resort.</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg><span lang="sk"><b>Tatranská električka</b>, pohodlné spojenie po celých Tatrách.</span><span lang="en" hidden><b>Tatra tram</b>, easy connection across the whole range.</span></li>
+        </ul>
+      </div>
+      <figure class="loc-figure" style="margin:0"><img src="images/06.jpg" alt="Obývačka apartmánu s balkónovými dverami a výhľadom"></figure>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="kontakt" class="contact">
+    <div class="wrap">
+      <div class="contact-card">
+        <span class="eyebrow"><span lang="sk">Kontakt &amp; rezervácia</span><span lang="en" hidden>Contact &amp; booking</span></span>
+        <h2><span lang="sk">Radi vás ubytujeme</span><span lang="en" hidden>We'd love to host you</span></h2>
+        <p class="sub"><span lang="sk">Napíšte alebo zavolajte a radi vám potvrdíme voľný termín, cenu a všetky detaily pobytu.</span><span lang="en" hidden>Call or message us and we'll gladly confirm availability, pricing and all the details of your stay.</span></p>
+        <a class="phone" href="tel:+421911124191">+421 911 124 191</a>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="tel:+421911124191"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span lang="sk">Zavolať</span><span lang="en" hidden>Call now</span></a>
+          <a class="btn btn-wa" href="https://wa.me/421911124191" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 0 1 6.8 12.2l-.3.5.8 2.8-2.9-.8-.4.2A8 8 0 1 1 12 4zm-3.4 4.3c-.2 0-.5 0-.7.4-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.2.2 1.8 2.9 4.5 3.9 2.2.8 2.7.7 3.2.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.7-.4c-.3-.1-1.5-.8-1.8-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.1-.3.2-.5 0-.3-.1-1.1-.4-2-1.2-.8-.6-1.3-1.5-1.4-1.7-.2-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5 0-.2 0-.3 0-.5l-.8-1.9c-.2-.5-.4-.5-.6-.5h-.4z"/></svg><span lang="sk">WhatsApp</span><span lang="en" hidden>WhatsApp</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="brand" style="display:inline-flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L13.5 6 10 12l-2-3z"/></svg> Apartmán Jedla</div>
+  <p><span lang="sk">Štrbské Pleso · Vysoké Tatry · Slovensko</span><span lang="en" hidden>Štrbské Pleso · High Tatras · Slovakia</span></p>
+  <p style="margin-top:6px"><a href="tel:+421911124191">+421 911 124 191</a></p>
+</footer>
+
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Fotogaléria">
+  <button class="lb-close" id="lbClose" aria-label="Zavrieť"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <button class="lb-prev" id="lbPrev" aria-label="Predošlá"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-next" id="lbNext" aria-label="Ďalšia"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ---------- language ----------
+  var root=document.documentElement;
+  function setLang(l){
+    root.setAttribute("data-lang",l);
+    root.lang=l;
+    document.querySelectorAll('[lang="sk"]').forEach(function(e){e.hidden=(l!=="sk");});
+    document.querySelectorAll('[lang="en"]').forEach(function(e){e.hidden=(l!=="en");});
+    document.querySelectorAll("[data-lang-btn]").forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang-btn")===l ? "true":"false");
+    });
+    try{localStorage.setItem("apt_lang",l);}catch(e){}
+  }
+  document.querySelectorAll("[data-lang-btn]").forEach(function(b){
+    b.addEventListener("click",function(){setLang(b.getAttribute("data-lang-btn"));});
+  });
+  var saved="sk"; try{saved=localStorage.getItem("apt_lang")||"sk";}catch(e){}
+  setLang(saved==="en"?"en":"sk");
+
+  // ---------- header shadow ----------
+  var hdr=document.getElementById("siteHeader");
+  var onScroll=function(){ hdr.classList.toggle("scrolled", window.scrollY>12); };
+  onScroll(); window.addEventListener("scroll",onScroll,{passive:true});
+
+  // ---------- gallery ----------
+  var captions={
+    "05":{sk:"Obývačka s výhľadom",en:"Living room with a view"},
+    "01":{sk:"Spálňa s balkónom",en:"Bedroom with balcony"},
+    "12":{sk:"Kuchynský kút",en:"Kitchen area"},
+    "06":{sk:"Obývačka a balkón",en:"Living room &amp; balcony"},
+    "02":{sk:"Spálňa",en:"Bedroom"},
+    "08":{sk:"Plne vybavená kuchyňa",en:"Fully equipped kitchen"},
+    "09":{sk:"Otvorený priestor",en:"Open-plan space"},
+    "10":{sk:"Kúpeľňa so sprchou",en:"Bathroom with shower"},
+    "04":{sk:"Jedálenský kút",en:"Dining nook"},
+    "03":{sk:"Pohodlná posteľ",en:"Comfortable bed"},
+    "07":{sk:"Kuchyňa a vstupná hala",en:"Kitchen &amp; entrance"},
+    "11":{sk:"Detail kúpeľne",en:"Bathroom detail"}
+  };
+  var order=["05","01","12","06","02","08","09","10","04","03","07","11"];
+  var gal=document.getElementById("gallery");
+  order.forEach(function(id,i){
+    var fig=document.createElement("figure");
+    fig.className="gcell"; fig.tabIndex=0; fig.setAttribute("role","button");
+    fig.setAttribute("data-i",i);
+    var lbl=captions[id]?captions[id].sk:"Apartmán Jedla";
+    fig.setAttribute("aria-label", lbl);
+    var im=document.createElement("img");
+    im.src="images/"+id+".jpg"; im.alt=lbl; im.loading="lazy";
+    fig.appendChild(im); gal.appendChild(fig);
+  });
+
+  // ---------- lightbox ----------
+  var lb=document.getElementById("lightbox"), lbImg=document.getElementById("lbImg"),
+      lbCount=document.getElementById("lbCount"), cur=0, lastFocus=null;
+  function render(){
+    var id=order[cur];
+    lbImg.src="images/"+id+".jpg";
+    var c=captions[id]; var l=root.getAttribute("data-lang")||"sk";
+    lbImg.alt=c?(l==="en"?c.en:c.sk):"";
+    lbCount.textContent=(cur+1)+" / "+order.length;
+  }
+  function open(i){ cur=i; lastFocus=document.activeElement; render(); lb.classList.add("open");
+    document.body.style.overflow="hidden"; document.getElementById("lbClose").focus(); }
+  function close(){ lb.classList.remove("open"); document.body.style.overflow="";
+    if(lastFocus&&lastFocus.focus)lastFocus.focus(); }
+  function step(d){ cur=(cur+d+order.length)%order.length; render(); }
+  gal.addEventListener("click",function(e){ var c=e.target.closest(".gcell"); if(c)open(+c.getAttribute("data-i")); });
+  gal.addEventListener("keydown",function(e){ var c=e.target.closest(".gcell");
+    if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();open(+c.getAttribute("data-i"));} });
+  document.getElementById("lbClose").addEventListener("click",close);
+  document.getElementById("lbPrev").addEventListener("click",function(){step(-1);});
+  document.getElementById("lbNext").addEventListener("click",function(){step(1);});
+  lb.addEventListener("click",function(e){ if(e.target===lb)close(); });
+  document.addEventListener("keydown",function(e){
+    if(!lb.classList.contains("open"))return;
+    if(e.key==="Escape")close(); else if(e.key==="ArrowRight")step(1); else if(e.key==="ArrowLeft")step(-1);
+  });
+})();
+</script>
+
+</body>
+</html>
